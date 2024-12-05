@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Technologies Basket</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <style>
+            html, body {
+                background-color: #D8D2C2;
+                color: white;
+                margin: 0;
+                padding: 0;
+                height: 100%;
+            }
+
+            .navbar {
+                padding: 1.5rem;
+            }
+
+            .navbar-brand {
+                font-size: 1.75rem;
+                font-weight: bold;
+            }
+
+            .navbar-nav .nav-link {
+                font-size: 1.25rem;
+            }
+
+            .flowchart-container {
+                margin: 20px auto;
+                padding: 20px;
+                text-align: center;
+            }
+
+            .level {
+                display: flex;
+                justify-content: center;
+                margin: 20px 0;
+                position: relative;
+            }
+
+            .node, .block {
+                color: rgb(0, 0, 0);
+                padding: 20px 25px; /* Increased padding for larger blocks */
+                border-radius: 10px;
+                text-align: center;
+                width: 240px; /* Increased width */
+                margin: 15px; /* Increased margin for better spacing */
+                font-size: 1.2rem; /* Increased text size */
+                text-decoration: none;
+                display: block;
+                background-color: #7C93C3;
+                transition: background-color 0.3s ease;
+                cursor: pointer;
+                position: relative;
+            }
+
+            .node.level-1 {
+                background-color: #EEE9DA;
+            }
+
+            .node.level-2 {
+                background-color: #BDCDD6;
+            }
+
+            .node.level-3 {
+                background-color: #93BFCF;
+            }
+
+            .node.level-4 {
+                background-color: #6096B4;
+            }
+            
+            .node:hover, .block:hover {
+                background-color: #ffffff;
+            }
+
+            .vertical-column {
+                display: none; /* Hidden by default */
+                flex-direction: column;
+                align-items: center;
+                margin-top: 10px;
+            }
+
+            .vertical-column.show {
+                display: flex; /* Show on toggle */
+            }
+
+            .pointer {
+                margin: 5px auto;
+                width: 0;
+                height: 0;
+                border-left: 5px solid transparent;
+                border-right: 5px solid transparent;
+                border-top: 10px solid white; /* Arrow pointing down */
+                transition: transform 0.3s ease; /* Smooth rotation */
+            }
+
+            .pointer.open {
+                transform: rotate(-180deg); /* Rotate up when expanded */
+            }
+
+            /* Left-aligned text */
+            .text-left {
+                color: black;
+                text-align: left;
+            }
+
+            /* Instructions and heading styles */
+            .heading {
+                font-size: 2rem;
+                color: #000000;
+                margin-top: 40px;
+            }
+            
+            .about-proj{
+                font-size: 1.1rem;
+                text-align: justify;
+            }
+
+            .instructions {
+                font-size: 1.1rem;
+                color: black;
+                margin-top: 20px;
+            }
+
+            .list-unstyled {
+                color: #333;
+                padding-left: 20px;
+                list-style:disc;
+                font-size: 1.1rem;
+            }
+
+            .list-unstyled li {
+                margin-bottom: 10px;
+            }
+
+            .instructions-list-unstyled{
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+       <!-- Navigation Bar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" style="padding: 1.5rem;">
+            <div class="container-fluid">
+                <a class="navbar-brand d-flex align-items-center" href="#" style="font-size: 1.75rem; font-weight: bold;">
+                    <img src="./logomain.png" alt="Logo" width="80" height="80" class="me-3">
+                    <span>AMTR Technology Baskets</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#" style="font-size: 1.25rem;">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" style="font-size: 1.25rem;">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" style="font-size: 1.25rem;">Contact Us</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Heading and Instructions -->
+        <div class="container text-left">
+            <h2 class="heading">Welcome to the Technology Baskets of Advanced RF & Microwave Technologies for Radar Applications</h2>
+            <p class="about-proj">Welcome to Advanced RF & Microwave Technologies for Radar Applications (AMTR)
+                AMTR (Advanced RF & Microwave Technologies for Radar Applications) refers to a collection of cutting-edge technologies that enable the development and optimization of radar systems using advanced RF (Radio Frequency) and microwave techniques. These technologies play a critical role in enhancing the performance of radar systems for various applications, including military, aerospace, and scientific research. 
+                The AMTR focuses on innovations such as high-power RF components, advanced antennas, signal processing techniques, and other radar technologies that push the boundaries of detection, range, resolution, and accuracy. It aims to address the increasing demand for high-performance, versatile, and efficient radar systems capable of operating in challenging environments.  
+                Through continuous research and development, AMTR technologies contribute significantly to the advancement of radar capabilities, providing essential tools for applications like surveillance, navigation, weather forecasting, and defense systems.</p>
+            <h3> About the flow chart</h3>    
+            <p class="instructions">
+                This interactive flowchart represents the different technology baskets associated with AMTR. 
+                The flowchart is divided into different levels representing various stages and areas of technology. 
+                You can click on each item to expand further details related to the respective basket.
+            </p>
+            <p class="instructions instructions-list-unstyled">
+                To navigate through the flowchart:
+                <ul class="list-unstyled">
+                    <li>Click on each node to reveal more detailed technology baskets under that category.</li>
+                    <li>Each technology basket contains further information regarding specific components.</li>
+                    <li>Use the arrows to expand or collapse sections of the flowchart.</li>
+                </ul>
+            </p>
+        </div>
+
+        <div class="flowchart-container">
+            <div class="flowchart">
+                <div class="level">
+                    <div>
+                        <a href="#" class="node level-1" onclick="toggleExpand(event, 'level-2')">LRDE</a>
+                        <div class="pointer"></div>
+                    </div>
+                </div>
+                <div class="vertical-column" id="level-2">
+                    <div class="level">
+                        <div>
+                            <a href="#" class="node level-2" onclick="toggleExpand(event, 'level-3')">RAMD</a>
+                            <div class="pointer"></div>
+                        </div>
+                    </div>
+                    <div class="vertical-column" id="level-3">
+                        <div class="level">
+                            <div>
+                                <a href="#" class="node level-3" onclick="toggleExpand(event, 'level-4')">AMTR</a>
+                                <div class="pointer"></div>
+                            </div>
+                        </div>
+                        <div class="vertical-column" id="level-4">
+                            <div class="level">
+                                <div>
+                                    <a href="#" class="node level-4" onclick="toggleExpand(event, 'basket-1')">Technology Basket 1</a>
+                                    <div class="pointer"></div>
+                                    <div class="vertical-column" id="basket-1">
+                                        <a href="#" class="block">MRU (S Band & X Band)</a>
+                                        <a href="#" class="block">LTCC Array</a>
+                                        <a href="#" class="block">LTCC Passives</a>
+                                        <a href="#" class="block">X Band Planar Array with Planar up/down converter</a>
+                                        <a href="#" class="block">Ku Band Active Antenna Array Unit</a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="#" class="node level-4" onclick="toggleExpand(event, 'basket-2')">Technology Basket 2</a>
+                                    <div class="pointer"></div>
+                                    <div class="vertical-column" id="basket-2">
+                                        <a href="#" class="block">Shared Aperture Phased Array Antenna</a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="#" class="node level-4" onclick="toggleExpand(event, 'basket-3')">Technology Basket 3</a>
+                                    <div class="pointer"></div>
+                                    <div class="vertical-column" id="basket-3">
+                                        <a href="#" class="block">High Power Density DC DC Converters</a>
+                                        <a href="#" class="block">MMIC</a>
+                                        <a href="#" class="block">Beamformer ICs</a>
+                                        <a href="#" class="block">RF ADCs, RF DACs</a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="#" class="node level-4" onclick="toggleExpand(event, 'basket-4')">Technology Basket 4</a>
+                                    <div class="pointer"></div>
+                                    <div class="vertical-column" id="basket-4">
+                                        <a href="#" class="block">Spherical Radome</a>
+                                        <a href="#" class="block">Meta Material based antennas/antenna arrays</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>   
+                    </div>
+                </div>
+            </div>
+        </div>        
+
+        <marquee>More content coming soon.</marquee>
+
+        <script>
+            function toggleExpand(event, id) {
+                event.preventDefault();
+                const element = document.getElementById(id);
+                const pointer = event.target.closest('.node').nextElementSibling;
+        
+                if (element) {
+                    element.classList.toggle('show');
+        
+                    // Always scroll to the element, regardless of collapsing or expanding
+                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+        
+                if (pointer) {
+                    pointer.classList.toggle('open'); // Rotate pointer
+                }
+            }
+        </script>
+        
+        
+    </body>
+</html>
+
