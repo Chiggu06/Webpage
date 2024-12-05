@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Technologies Basket</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <style>
+            html, body {
+                background-color: white;
+                color: white;
+                margin: 0;
+                padding: 0;
+                height: 100%;
+            }
+
+            .navbar {
+                padding: 1.5rem;
+            }
+
+            .navbar-brand {
+                font-size: 1.75rem;
+                font-weight: bold;
+            }
+
+            .navbar-nav .nav-link {
+                font-size: 1.25rem;
+            }
+
+            .flowchart-container {
+                margin: 20px auto;
+                padding: 20px;
+                text-align: center;
+            }
+
+            .level {
+                display: flex;
+                justify-content: center;
+                margin: 20px 0;
+                position: relative;
+            }
+
+            .node, .block {
+                color: rgb(0, 0, 0);
+                padding: 20px 25px;
+                border-radius: 10px;
+                text-align: center;
+                width: 240px;
+                margin: 15px;
+                font-size: 1.2rem;
+                text-decoration: none;
+                display: block;
+                background-color: #9B7EBD;
+                transition: background-color 0.3s ease, border 0.3s ease;
+                cursor: pointer;
+                position: relative;
+            }
+
+            .node.level-1 {
+                background-color: #78B3CE;
+            }
+
+            .node.level-2 {
+                background-color: #C9E6F0;
+            }
+
+            .node.level-3 {
+                background-color: #FBD288;
+            }
+
+            .node.level-4 {
+                background-color: #ABBA7C;
+            }
+
+            .node:hover, .block:hover {
+                background-color: #ffffff; /* Existing hover effect */
+                border: 2px solid black; /* Black border on hover */
+            }
+
+            .vertical-column {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 10px;
+            }
+
+            .vertical-column.show {
+                display: flex;
+            }
+
+            .pointer {
+                margin: 5px auto;
+                width: 0;
+                height: 0;
+                border-left: 5px solid transparent;
+                border-right: 5px solid transparent;
+                border-top: 10px solid #1A1A19;
+                transition: transform 0.3s ease;
+            }
+
+            .pointer.open {
+                transform: rotate(-180deg);
+            }
+
+            .text-left {
+                color: black;
+                text-align: left;
+            }
+
+            .heading {
+                font-size: 2rem;
+                color: #000000;
+                margin-top: 40px;
+            }
+
+            .about-proj {
+                font-size: 1.1rem;
+                text-align: justify;
+            }
+
+            .about-LRDE {
+                font-size: 1.1rem;
+                text-align: justify;
+            }
+
+            .about-RAMD {
+                font-size: 1.1rem;
+                text-align: justify;
+            }
+
+            .instructions {
+                font-size: 1.1rem;
+                color: black;
+                margin-top: 20px;
+            }
+
+            .list-unstyled {
+                color: #333;
+                padding-left: 20px;
+                list-style: disc;
+                font-size: 1.1rem;
+            }
+
+            .list-unstyled li {
+                margin-bottom: 10px;
+            }
+
+            .instructions-list-unstyled {
+                font-weight: bold;
+            }
+
+            .marquee {
+                color: black;
+            }
+
+            .bold{
+                font-weight: bold;   
+            }
+        </style>
+    </head>
+    <body>
+       <!-- Navigation Bar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" style="padding: 1.5rem;">
+            <div class="container-fluid">
+                <a class="navbar-brand d-flex align-items-center" href="#" style="font-size: 1.75rem; font-weight: bold;">
+                    <img src="./logomain.png" alt="Logo" width="80" height="80" class="me-3">
+                    <span>AMTR Technology Baskets</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#" style="font-size: 1.25rem;">Home</a>
+                        </li>
+                        <!-- About line navigation bar -->
+                        <!--<li class="nav-item">
+                            <a class="nav-link" href="#" style="font-size: 1.25rem;">About</a>
+                        </li>-->
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" style="font-size: 1.25rem;">Contact Us</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Heading and Instructions -->
+        <div class="container text-left">
+            <h2 class="heading">Electronics & Radar Development Establishment (LRDE)</h2>
+            <br>
+            <p class="about-LRDE"><span class="bold">LRDE</span> was setup under DRDO to address the Services' needs in the field of Radars, 
+               Communication Systems and related technologies. It was born out of Technical Development Establishment (TDE) at Rawalpindi and moved to Dehradun in 1946. 
+               The TDE (Electronics) further bifurcated into two wings in 1955 and moved to Bangalore as Electronics Research and Development Establishment (LRDE) and Chief Inspectorate of Electronics (CIL) in 1958. 
+               LRDE came under DRDO on 01 Jan1958. In 1962 it was renamed as Electronics and Radar Development Establishment (LRDE) to develop Radar and Communication Systems and to meet the requirements of the Services. 
+               The responsibility of Communication Systems development was transferred to CAIR in 2001. After implementation of the Rama Rao Committee recommendations, seven clusters of labs were created in DRDO and LRDE is a part of the Electronics& Communications Systems Cluster (ECS), 
+               headed by The Director General (ECS).</p>
+            <br>
+            <p class="about-LRDE">Today, LRDE is a premier Radar Systems laboratory with Core Competence and established expertise to build advanced Radar Systems, which include short to long-range radars for ground based, ship borne and air borne surveillance, tracking and weapon control. 
+            LRDE has developed many advanced radar technologies including transmit and receive modules from L to X Band, slotted waveguide array antennas, micro-strip array antennas, multi-beam antennas, high power transmitters, high purity signal sources, high bandwidth waveform generation systems, programmable signal and data processors and radar controllers. 
+            LRDE has nurtured and established a robust indigenous Industry ecosystem in the private sector for radar sub-systems manufacture in the Country, thereby giving a fillip to the AtmaNirbhar Bharat initiative of the Government Of India.</p>
+            <br>
+            <p class="about-LRDE">In sync with modern Project Management practices, LRDE has developed design, manufacturing, assembly, integration, and test & evaluation infrastructure to offer reliable equipment and systems to the Armed Forces. 
+            LRDE has developed a wide range of test facilities and test ranges spread overdifferent parts of the Country to meet the growing requirement of radars. State-of-the-art Environmental& EMI/EMC Test Facilities as per MIL standards, Near Field and Far field antenna test ranges in Bangalore &Kolar, Radar Test Ranges in Bangalore, Kolar, Yelahanka, Puri,Paradweep (Orissa) and Okha (Gujarat) have been established. 
+            Quality Engineering has been nurtured and promoted since the inception of the Establishment.</p>
+            <br>
+            <p class="about-LRDE">LRDE is an ISO 9001:2015 certified establishment with a manpower of around 700 qualified Scientists/Engineers/Technical & Administrative Staff.</p>
+            <br>
+            <hr>
+            </p>
+
+            <h2 class="heading">Radar and Microwave Division (RAMD)</h2>
+            <br>
+            <p class="about-RAMD"><span class="bold">RAMD</span> is a critical unit within the Electronics and Radar Development Establishment (LRDE), 
+                a premier laboratory under the Defence Research and Development Organisation (DRDO) of India. RAMD plays a pivotal role in designing, developing, 
+                and innovating cutting-edge radar and microwave systems to meet the defense and strategic needs of the nation.</p>
+            <br>
+            <h4>Key focus areas</h4>
+            <ul class="about-RAMD">
+                <li>Radar Systems Development
+                    <ul>
+                        <li>Development of state-of-the-art radar systems for military, aerospace, and civilian applications.</li>
+                        <li>Includes long-range surveillance, tracking, weather monitoring, and battlefield radar solutions.</li>
+                    </ul>
+                </li>
+                <li>Microwave Technology
+                    <ul>
+                        <li>Design and development of advanced microwave components such as transmitters, receivers, and antennas.</li>
+                        <li>Innovation in high-frequency microwave circuits and subsystems.</li>
+                    </ul>
+                </li>
+                <li>Phased Array Technology
+                    <ul>
+                        <li>Expertise in electronically scanned phased array radars, enabling dynamic beam steering and improved performance.</li>
+                        <li>Applications in air defense, missile guidance, and border surveillance.</li>
+                    </ul>
+                </li>
+                <li>Signal Processing
+                    <ul>
+                        <li>Implementation of advanced signal processing techniques for radar data analysis, target detection, and tracking.</li>
+                        <li>Development of real-time processing algorithms to enhance radar accuracy.</li>
+                    </ul>
+                </li>
+                <li>Indigenous Technology Development
+                    <ul>
+                        <li>Focus on self-reliance by creating radar and microwave systems tailored for Indian defense requirements.</li>
+                        <li>Collaboration with industries to produce indigenous solutions</li>
+                    </ul>
+                </li>
+            </ul>
+            <br>
+            <h4>Applications of RAMD Technologies</h4>
+            <ul class="about-RAMD">
+                <li>Airborne Radar Systems: For fighter jets, UAVs, and helicopters.</li>
+                <li>Ground-Based Radars: For air defense, weather monitoring, and surveillance.</li>
+                <li>Naval Radar Systems: For maritime surveillance and shipborne applications.</li>
+                <li>Microwave Subsystems: Used in a variety of radar platforms for transmission and reception.</li>
+            </ul>
+            <br>
+            <h4>Key Contributions</h4>
+            <ul class="about-RAMD">
+                <li>RAMD has been instrumental in the successful development of advanced radar systems such as Battlefield Surveillance Radar (BFSR), Weapon Locating Radar (WLR), and Active Electronically Scanned Array (AESA) radars.</li>
+                <li>Supporting the Indian armed forces with world-class radar technologies and enhancing national defense capabilities.</li>
+            </ul>
+            <br>
+            <h4>Research and Innovation</h4>
+            <p class="about-RAMD">RAMD is engaged in continuous research and innovation to push the boundaries of radar and microwave technology. This includes</p>
+            <ul class="about-RAMD">
+                <li>Artificial Intelligence and Machine Learning in radar signal processing.</li>
+                <li>Miniaturization of radar and microwave components.</li>
+                <li>Integration of radar systems with modern communication networks.</li>
+            </ul>
+            <br>
+            <hr>
+            <h2 class="heading">Advanced RF & Microwave Technologies for Radar Applications (AMTR)</h2>
+            <br>
+            <p class="about-proj">
+                <span class="bold">AMTR</span> refers to a collection of cutting-edge technologies that enable the development and optimization of radar systems using advanced RF (Radio Frequency) and microwave techniques. These technologies play a critical role in enhancing the performance of radar systems for various applications, including military, aerospace, and scientific research. 
+                The AMTR focuses on innovations such as high-power RF components, advanced antennas, signal processing techniques, and other radar technologies that push the boundaries of detection, range, resolution, and accuracy. It aims to address the increasing demand for high-performance, versatile, and efficient radar systems capable of operating in challenging environments.  
+                Through continuous research and development, AMTR technologies contribute significantly to the advancement of radar capabilities, providing essential tools for applications like surveillance, navigation, weather forecasting, and defense systems.</p>
+            <br>    
+            <h3> About the flow chart</h3>    
+            <p class="instructions">
+                This interactive flowchart represents the different technology baskets associated with AMTR. 
+                The flowchart is divided into different levels representing various stages and areas of technology. 
+                You can click on each item to expand further details related to the respective basket.
+            </p>
+            <p class="instructions instructions-list-unstyled">
+                To navigate through the flowchart:
+                <ul class="list-unstyled">
+                    <li>Click on each node to reveal more detailed technology baskets under that category.</li>
+                    <li>Use the arrows to expand or collapse sections of the flowchart.</li>
+                    <li>Each technology basket contains further information regarding specific components.</li>              
+                </ul>
+            </p>
+        </div>
+
+        <div class="flowchart-container">
+            <div class="flowchart">
+                <div class="level">
+                    <div>
+                        <a href="#" class="node level-1" onclick="toggleExpand(event, 'level-2')">LRDE</a>
+                        <div class="pointer"></div>
+                    </div>
+                </div>
+                <div class="vertical-column" id="level-2">
+                    <div class="level">
+                        <div>
+                            <a href="#" class="node level-2" onclick="toggleExpand(event, 'level-3')">RAMD</a>
+                            <div class="pointer"></div>
+                        </div>
+                    </div>
+                    <div class="vertical-column" id="level-3">
+                        <div class="level">
+                            <div>
+                                <a href="#" class="node level-3" onclick="toggleExpand(event, 'level-4')">AMTR</a>
+                                <div class="pointer"></div>
+                            </div>
+                        </div>
+                        <div class="vertical-column" id="level-4">
+                            <div class="level">
+                                <div>
+                                    <a href="#" class="node level-4" onclick="toggleExpand(event, 'basket-1')">Technology Basket 1</a>
+                                    <div class="pointer"></div>
+                                    <div class="vertical-column" id="basket-1">
+                                        <a href="#" class="block">MRU (S Band & X Band)</a>
+                                        <a href="#" class="block">LTCC Array</a>
+                                        <a href="#" class="block">LTCC Filters</a>
+                                        <a href="#" class="block">X Band Planar Array with Planar up/down converter</a>
+                                        <a href="#" class="block">Ku Band Active Antenna Array Unit</a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="#" class="node level-4" onclick="toggleExpand(event, 'basket-2')">Technology Basket 2</a>
+                                    <div class="pointer"></div>
+                                    <div class="vertical-column" id="basket-2">
+                                        <a href="#" class="block">Shared Aperture Phased Array Antenna</a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="#" class="node level-4" onclick="toggleExpand(event, 'basket-3')">Technology Basket 3</a>
+                                    <div class="pointer"></div>
+                                    <div class="vertical-column" id="basket-3">
+                                        <a href="#" class="block">High Power Density DC DC Converters</a>
+                                        <a href="#" class="block">MMIC</a>
+                                        <a href="#" class="block">Beamformer ICs</a>
+                                        <a href="#" class="block">RF ADCs, RF DACs</a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="#" class="node level-4" onclick="toggleExpand(event, 'basket-4')">Technology Basket 4</a>
+                                    <div class="pointer"></div>
+                                    <div class="vertical-column" id="basket-4">
+                                        <a href="#" class="block">Spherical Radome</a>
+                                        <a href="#" class="block">Meta Material based antennas/antenna arrays</a>
+                                        <a href="#" class="block">Drone Calibration / Field Bite Techniques</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>   
+                    </div>
+                </div>
+            </div>
+        </div>        
+
+        <marquee class="marquee">More content coming soon.</marquee>
+
+        <script>
+            function toggleExpand(event, id) {
+                event.preventDefault();
+                const element = document.getElementById(id);
+                const pointer = event.target.closest('.node').nextElementSibling;
+        
+                if (element) {
+                    element.classList.toggle('show');
+        
+                    // Always scroll to the element, regardless of collapsing or expanding
+                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+        
+                if (pointer) {
+                    pointer.classList.toggle('open'); // Rotate pointer
+                }
+            }
+        </script>
+        
+        
+    </body>
+</html>
+
