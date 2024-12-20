@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: white;
+            color: #333;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 30px;
+            background-color: #f3e8f6;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .header .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .header .logo img {
+            width: 100px;
+            height: 100px;
+            margin-right: 15px;
+        }
+
+        header .logo h1 {
+            font-size: 36px;
+            color: #000;
+            margin: 0;
+            font-weight: 600;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: #efe8f6;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header-section h1 {
+            font-size: 2rem;
+            margin: 0;
+            background: linear-gradient(90deg, #2c3e50, #7b5cfb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .content {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .content img {
+            width: 150px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #555;
+            margin: 10px auto;
+            max-width: 600px;
+            text-align: justify;
+        }
+
+        .contact-info {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            font-size: 18px;
+        }
+
+        .contact-info a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .back-button {
+            background-color: transparent;
+            color: black;
+            border: 2px solid black;
+            padding: 8px 15px;
+            font: normal normal normal 14px/1.6em Arial, sans-serif;
+            border-radius: 999px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            width: max-content;
+            display: block;
+            margin: 20px auto;
+        }
+
+        .back-button:hover {
+            background-color: black;
+            color: white;
+        }
+
+        .google-form {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="logo">
+            <img src="./logomain.png" alt="Logo">
+            <h1>AMTR Technology Basket's</h1>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <div class="container" style="background-image: url('Image2.svg'); background-size: cover; background-position: center; background-repeat: no-repeat; padding: 20px; border-radius: 8px;">
+        <div class="header-section">
+            <h1>Contact Information</h1>
+        </div>
+    
+        <div class="content" style="background-color: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: 8px;">
+            <img src="image.png" alt="Photo of Venkatesh Prabhu" style="float: left; margin-right: 20px; width: 150px; height: auto; border-radius: 8px;">
+            <p><strong>Mr. Venkatesh Prabhu, Sc ’F’</strong></p>
+            <p>Mr. Venkatesh Prabhu received his BE degree in Electrical & Electronics from Regional Engineering College, Suratkal, in 1999 and his ME degree from Indian Institute of Science, Bangalore, in 2001.</p>
+            <p>Since 2001, he has been with the Electronics & Radar Development Establishment (LRDE), Bangalore, where he has been involved in the design and development of high-power radar transmitters and antenna array power supplies. He has contributed to the indigenous development and realization of high-power radar transmitters for 3D Surveillance Radars, Weapon Locating Radar, and Synthetic Aperture Radars.</p>
+        </div>
+    
+        <div class="google-form">
+            <h2>Get in Touch</h2>
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScO4PCtFfs9Rn67_UZ2PUxEPVWXjaeod2ued9LVpMy_p0uSnQ/viewform?embedded=true" width="640" height="1097" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        </div>
+
+        <p>If the form dosen't open up <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScO4PCtFfs9Rn67_UZ2PUxEPVWXjaeod2ued9LVpMy_p0uSnQ/viewform?usp=header">click here</a></p>
+
+        <!-- Eamil -->
+        <!--<div class="contact-info">
+            <p><strong>Email:</strong> <a href="mailto:venkatesh.lrde@gov.in">venkatesh.lrde@gov.in</a></p>
+        </div>-->
+
+        <button class="back-button" onclick="location.href='index.html'">Back to Home</button>
+    </div>
+</body>
+</html>

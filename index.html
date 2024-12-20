@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technology Basket's</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 30px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #ddd;
+            background:  #efe8f6;
+        }
+
+        .header .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .header .logo img {
+            width: 100px;
+            height: 100px;
+            margin-right: 15px;
+        }
+
+        .header .logo h1 {
+            font-size: 36px;
+            color: #000;
+            margin: 0;
+            font-weight: 600;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .header .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header .nav-links a {
+            color: #000000;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+                .header .nav-links a {
+                    position: relative;
+                    color: #000000;
+                    text-decoration: none;
+                    font-size: 18px;
+                    font-weight: 400;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    transition: color 0.3s ease;
+                }
+        }
+
+
+        .header .nav-links a svg {
+            height: 18px;
+            width: 18px;
+            fill: #000000;
+            transition: transform 0.3s ease;
+        }
+
+        .header .nav-links a:hover {
+            color: #0056b3;
+        }
+
+        .header .nav-links a:hover svg {
+            transform: translateX(5px);
+        }
+
+        .header .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; /* Position below the text */
+            left: 0;
+            width: 0;
+            height: 2px; /* Thickness of the underline */
+            background-color: #0056b3; /* Color of the underline */
+            transition: width 0.3s ease;
+        }
+
+    .header .nav-links a:hover {
+        color: #0056b3;
+    }
+
+    .header .nav-links a:hover::after {
+        width: 100%; /* Expand underline fully */
+    }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header .nav-links a {
+            animation: fadeIn 0.5s ease both;
+        }
+
+        .header .nav-links a:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100vh;
+            min-height: 100vh;
+            padding: 20px;
+            margin: 20px 0;
+            overflow: hidden;
+            transition: height 0.5s ease;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            background: none; /* Ensure no background image is applied directly */
+        }
+
+        .content::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%; /* Full section height */
+            width: 100%; /* Full section width */
+            background-image: url('Image2.svg'); /* Replace with your image */
+            background-size: cover; /* Scale the image to cover the section */
+            background-repeat: no-repeat;
+            background-position: left center; /* Adjust for left alignment */
+            opacity: 1;
+            transition: opacity 0.5s ease;
+            z-index: -1; /* Ensures it stays behind content */
+        }
+
+        /* Adjust alignment for specific sections */
+        #content2::before, #content4::before {
+            background-position: right center; /* Image on the right half for these sections */
+        }
+
+
+        #content1, #content3 {
+            background: linear-gradient(135deg, #e8eaf6, #ffffff); /* Default gradient for left sections */
+        }
+
+        #content2, #content4 {
+            background: linear-gradient(135deg, #ffffff, #e8eaf6); /* Default gradient for right sections */
+        }
+
+        .content.expanded::before {
+            opacity: 0; /* Hide the image when expanded */
+        }
+
+        .content.expanded {
+            height: auto;
+        }
+
+        .content h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.2;
+            background: linear-gradient(90deg, #2c3e50, #7b5cfb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .content h1 span {
+            color: inherit;
+        }
+
+        .content p {
+            background-color: transparent;
+            font-size: 18px;
+            text-decoration: none;
+            text-align: justify;
+            line-height: 1.6;
+            color: #555;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+
+        .extra-info {
+            display: none;
+            font-size: 18px;
+            color: #555;
+            text-align: justify;
+            line-height: 1.6;
+            margin: 0 auto; /* Ensures horizontal centering */
+            padding: 20px; /* Adds some spacing around the text */
+            max-width: 600px;
+        }
+
+
+        .content.expanded .extra-info {
+            display: block;
+        }
+
+        .content ul.about-RAMD {
+            text-align: left;
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 0 20px;
+        }
+
+        .content button {
+            background-color: transparent;
+            color: black;
+            border: 2px solid black;
+            padding: 8px 15px;
+            font: normal normal normal 14px/1.6em Arial, sans-serif;
+            border-radius: 999px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            width: max-content;
+        }
+
+        .content button:hover {
+            background-color: black;
+            color: white;
+        }
+
+        .content .read-less {
+            display: none;
+        }
+
+        .content.expanded .explore {
+            display: none;
+        }
+
+        .content.expanded .read-less {
+            display: inline-block;
+        }
+    </style>
+    <script>
+        function toggleContent(contentId) {
+            const content = document.getElementById(contentId);
+
+            if (content.classList.contains('expanded')) {
+                // Collapsing (Read Less)
+                content.classList.remove('expanded');
+                content.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                applyBackground(contentId); // Reapply background image
+            } else {
+                // Expanding (Explore)
+                content.classList.add('expanded');
+                content.style.backgroundImage = 'none'; // Remove background image
+                content.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Function to reapply background based on section
+        function applyBackground(contentId) {
+            const content = document.getElementById(contentId);
+
+            if (contentId === 'content1' || contentId === 'content3') {
+                content.style.backgroundImage = "url('Image2.svg')";
+                content.style.backgroundPosition = "left center";
+                content.style.backgroundSize = "50% 100%"; // Image spans left to center, full height
+                content.style.backgroundRepeat = "no-repeat";
+            } else if (contentId === 'content2' || contentId === 'content4') {
+                content.style.backgroundImage = "url('Image2.svg')";
+                content.style.backgroundPosition = "right center";
+                content.style.backgroundSize = "50% 100%"; // Image spans center to right, full height
+                content.style.backgroundRepeat = "no-repeat";
+            }
+        }
+
+        // Initial setup for all sections
+        document.addEventListener('DOMContentLoaded', () => {
+            ['content1', 'content2', 'content3', 'content4'].forEach(applyBackground);
+        });
+
+    </script>
+
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">
+            <img src="./logomain.png" alt="DRDO Logo">
+            <h1>AMTR Technology Basket's</h1>
+        </div>
+        <div class="nav-links">
+            <a href="#">
+                <span>Home</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24" data-type="shape">
+                    <g>
+                        <path d="m13 20.002-.707-.707L19.585 12l-7.293-7.294L13 4l8 8-8 8.002Zm-8.293.002L4 19.297l7.293-7.294L4 4.709l.707-.707 8 8-8 8.002Z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                    </g>
+                </svg>
+            </a>
+            <a href="./contact.html">
+                <span>Get in Touch</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24" data-type="shape">
+                    <g>
+                        <path d="m13 20.002-.707-.707L19.585 12l-7.293-7.294L13 4l8 8-8 8.002Zm-8.293.002L4 19.297l7.293-7.294L4 4.709l.707-.707 8 8-8 8.002Z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                    </g>
+                </svg>
+            </a>
+        </div>
+    </header>
+
+    <section class="content" id="content1">
+        <div>
+            <h1>Electronics & Radar Development Establishment (LRDE)</h1>
+            <p><span style="font-weight: bold;">LRDE</span> was setup under DRDO to address the Services' needs in the field of Radars, Communication Systems and related technologies.</p>
+            <div class="extra-info">
+                <p class="about-LRDE">It was born out of Technical Development Establishment (TDE) at Rawalpindi and moved to Dehradun in 1946. The TDE (Electronics) further bifurcated into two wings in 1955 and moved to Bangalore as Electronics Research and Development Establishment (LRDE) and Chief Inspectorate of Electronics (CIL) in 1958. LRDE came under DRDO on 01 Jan1958. In 1962 it was renamed as Electronics and Radar Development Establishment (LRDE) to develop Radar and Communication Systems and to meet the requirements of the Services. The responsibility of Communication Systems development was transferred to CAIR in 2001. After implementation of the Rama Rao Committee recommendations, seven clusters of labs were created in DRDO and LRDE is a part of the Electronics& Communications Systems Cluster (ECS), headed by The Director General (ECS).</p>
+                <br>
+                <p class="about-LRDE">Today, LRDE is a premier Radar Systems laboratory with Core Competence and established expertise to build advanced Radar Systems, which include short to long-range radars for ground based, ship borne and air borne surveillance, tracking and weapon control. LRDE has developed many advanced radar technologies including transmit and receive modules from L to X Band, slotted waveguide array antennas, micro-strip array antennas, multi-beam antennas, high power transmitters, high purity signal sources, high bandwidth waveform generation systems, programmable signal and data processors and radar controllers. LRDE has nurtured and established a robust indigenous Industry ecosystem in the private sector for radar sub-systems manufacture in the Country, thereby giving a fillip to the AtmaNirbhar Bharat initiative of the Government Of India.</p>
+                <br>
+                <p class="about-LRDE">In sync with modern Project Management practices, LRDE has developed design, manufacturing, assembly, integration, and test & evaluation infrastructure to offer reliable equipment and systems to the Armed Forces. LRDE has developed a wide range of test facilities and test ranges spread overdifferent parts of the Country to meet the growing requirement of radars. State-of-the-art Environmental& EMI/EMC Test Facilities as per MIL standards, Near Field and Far field antenna test ranges in Bangalore &Kolar, Radar Test Ranges in Bangalore, Kolar, Yelahanka, Puri,Paradweep (Orissa) and Okha (Gujarat) have been established. Quality Engineering has been nurtured and promoted since the inception of the Establishment.</p>
+                <br>
+                <p class="about-LRDE">LRDE is an ISO 9001:2015 certified establishment with a manpower of around 700 qualified Scientists/Engineers/Technical & Administrative Staff.</p>
+                <br>
+            </div>
+            <button class="explore" onclick="toggleContent('content1')">Explore</button>
+            <button class="read-less" onclick="toggleContent('content1')">Read Less</button>
+        </div>
+    </section>
+
+    <section class="content" id="content2">
+        <div>
+            <h1>Radar and Microwave Division (RAMD)</h1>
+            <p><span style="font-weight: bold;">RAMD</span> is a critical unit within the Electronics and Radar Development Establishment (LRDE), a premier laboratory under the Defence Research and Development Organisation (DRDO) of India. RAMD plays a pivotal role in designing, developing, and innovating cutting-edge radar and microwave systems to meet the defense and strategic needs of the nation.</p>
+            <div class="extra-info">
+                <h4>Key focus areas</h4>
+                <ul class="about-RAMD">
+                    <li>Radar Systems Development
+                        <ul>
+                            <li>Development of state-of-the-art radar systems for military, aerospace, and civilian applications.</li>
+                            <li>Includes long-range surveillance, tracking, weather monitoring, and battlefield radar solutions.</li>
+                        </ul>
+                    </li>
+                    <li>Microwave Technology
+                        <ul>
+                            <li>Design and development of advanced microwave components such as transmitters, receivers, and antennas.</li>
+                            <li>Innovation in high-frequency microwave circuits and subsystems.</li>
+                        </ul>
+                    </li>
+                    <li>Phased Array Technology
+                        <ul>
+                            <li>Expertise in electronically scanned phased array radars, enabling dynamic beam steering and improved performance.</li>
+                            <li>Applications in air defense, missile guidance, and border surveillance.</li>
+                        </ul>
+                    </li>
+                    <li>Signal Processing
+                        <ul>
+                            <li>Implementation of advanced signal processing techniques for radar data analysis, target detection, and tracking.</li>
+                            <li>Development of real-time processing algorithms to enhance radar accuracy.</li>
+                        </ul>
+                    </li>
+                    <li>Indigenous Technology Development
+                        <ul>
+                            <li>Focus on self-reliance by creating radar and microwave systems tailored for Indian defense requirements.</li>
+                            <li>Collaboration with industries to produce indigenous solutions.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <br>
+                <h4>Applications of RAMD Technologies</h4>
+                <ul class="about-RAMD">
+                    <li>Airborne Radar Systems: For fighter jets, UAVs, and helicopters.</li>
+                    <li>Ground-Based Radars: For air defense, weather monitoring, and surveillance.</li>
+                    <li>Naval Radar Systems: For maritime surveillance and shipborne applications.</li>
+                    <li>Microwave Subsystems: Used in a variety of radar platforms for transmission and reception.</li>
+                </ul>
+                <br>
+                <h4>Key Contributions</h4>
+                <ul class="about-RAMD">
+                    <li>RAMD has been instrumental in the successful development of advanced radar systems such as Battlefield Surveillance Radar (BFSR), Weapon Locating Radar (WLR), and Active Electronically Scanned Array (AESA) radars.</li>
+                    <li>Supporting the Indian armed forces with world-class radar technologies and enhancing national defense capabilities.</li>
+                </ul>
+                <br>
+                <h4>Research and Innovation</h4>
+                <p class="about-RAMD">RAMD is engaged in continuous research and innovation to push the boundaries of radar and microwave technology. This includes</p>
+                <ul class="about-RAMD">
+                    <li>Artificial Intelligence and Machine Learning in radar signal processing.</li>
+                    <li>Miniaturization of radar and microwave components.</li>
+                    <li>Integration of radar systems with modern communication networks.</li>
+                </ul>
+            </div>
+            <button class="explore" onclick="toggleContent('content2')">Explore</button>
+            <button class="read-less" onclick="toggleContent('content2')">Read Less</button>
+        </div>
+    </section>
+    
+
+    <section class="content" id="content3">
+        <div>
+            <h1>Advanced RF & Microwave Technologies for Radar Applications (AMTR)</h1>
+            <p><span style="font-weight: bold;">AMTR</span> refers to a collection of cutting-edge technologies that enable the development and optimization of radar systems using advanced RF (Radio Frequency) and microwave techniques. These technologies play a critical role in enhancing the performance of radar systems for various applications, including military, aerospace, and scientific research.</p>
+            <div class="extra-info">
+                <p>The AMTR focuses on innovations such as high-power RF components, advanced antennas, signal processing techniques, and other radar technologies that push the boundaries of detection, range, resolution, and accuracy. It aims to address the increasing demand for high-performance, versatile, and efficient radar systems capable of operating in challenging environments. Through continuous research and development, AMTR technologies contribute significantly to the advancement of radar capabilities, providing essential tools for applications like surveillance, navigation, weather forecasting, and defense systems.</p>
+            </div>
+            <button class="explore" onclick="toggleContent('content3')">Explore</button>
+            <button class="read-less" onclick="toggleContent('content3')">Read Less</button>
+        </div>
+    </section>
+    
+    <section class="content" id="content4">
+        <div>
+            <h1>About the Flowchart</h1>
+            <p>This interactive flowchart below represents the different technology baskets associated with AMTR. The flowchart is divided into different levels representing various stages and areas of technology. You can click on each item to expand further details related to the respective basket.</p>
+            <div class="extra-info">
+                <ul class="about-Flowchart">
+                    <li>Click on each node to reveal more detailed technology baskets under that category.</li>
+                    <li>Use the arrows to expand or collapse sections of the flowchart.</li>
+                    <li>Each technology basket contains further information regarding specific components.</li>
+                </ul>
+            </div>
+            <a class="view-flowchart" href="flowchart.html" target="_blank" style="text-decoration: none;">
+                <button>View Flowchart</button>
+            </a>            
+        </div>
+    </section>    
+    
+</body>
+</html>
