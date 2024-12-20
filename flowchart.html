@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>FlowChart</title>
+        
+        <style>
+            
+            .flowchart-container {
+                margin: 20px auto;
+                padding: 20px;
+                text-align: center;
+            }
+
+            .level {
+                display: flex;
+                justify-content: center;
+                margin: 20px 0;
+                position: relative;
+            }
+
+            .node, .block {
+                color: rgb(0, 0, 0);
+                padding: 20px 25px;
+                border-radius: 10px;
+                text-align: center;
+                width: 240px;
+                margin: 15px;
+                font-size: 1.2rem;
+                text-decoration: none;
+                display: block;
+                background-color: #9B7EBD;
+                transition: background-color 0.3s ease, border 0.3s ease;
+                cursor: pointer;
+                position: relative;
+            }
+
+            .node.level-1 {
+                background-color: #78B3CE;
+            }
+
+            .node.level-2 {
+                background-color: #C9E6F0;
+            }
+
+            .node.level-3 {
+                background-color: #FBD288;
+            }
+
+            .node.level-4 {
+                background-color: #ABBA7C;
+            }
+
+            .node:hover, .block:hover {
+                background-color: #ffffff; /* Existing hover effect */
+                border: 2px solid black; /* Black border on hover */
+            }
+
+            .vertical-column {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 10px;
+            }
+
+            .vertical-column.show {
+                display: flex;
+            }
+
+            .pointer {
+                margin: 5px auto;
+                width: 0;
+                height: 0;
+                border-left: 5px solid transparent;
+                border-right: 5px solid transparent;
+                border-top: 10px solid #1A1A19;
+                transition: transform 0.3s ease; /* Smooth rotation effect */
+            }
+
+            .pointer.open {
+                transform: rotate(180deg); /* Rotate 180 degrees when expanded */
+            }
+
+            .text-left {
+                color: black;
+                text-align: left;
+            }
+
+            .heading {
+                font-size: 2rem;
+                color: #000000;
+                margin-top: 40px;
+            }
+
+            .about-proj {
+                font-size: 1.1rem;
+                text-align: justify;
+            }
+
+            .about-LRDE {
+                font-size: 1.1rem;
+                text-align: justify;
+            }
+
+            .about-RAMD {
+                font-size: 1.1rem;
+                text-align: justify;
+            }
+
+            .instructions {
+                font-size: 1.1rem;
+                color: black;
+                margin-top: 20px;
+            }
+
+            .list-unstyled {
+                color: #333;
+                padding-left: 20px;
+                list-style: disc;
+                font-size: 1.1rem;
+            }
+
+            .list-unstyled li {
+                margin-bottom: 10px;
+            }
+
+            .instructions-list-unstyled {
+                font-weight: bold;
+            }
+
+            .marquee {
+                color: black;
+            }
+
+            .bold{
+                font-weight: bold;   
+            }
+
+            .block {
+                cursor: pointer;
+            }
+
+            /* Popup styles */
+            .popup-container {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 1000;
+                padding: 20px;
+                background: white;
+                border-radius: 10px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                text-align: center;
+                display: none;
+                max-width: 90%; /* Ensures the popup doesn't exceed screen width */
+                max-height: 80%; /* Restricts height to 80% of the viewport */
+                overflow: auto; /* Enables scrolling for content that overflows */
+            }
+
+            #popupBackdrop {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            }
+
+            .popup-container img {
+                width: 100%;
+                border-radius: 10px;
+                max-height: 300px;
+            }
+
+            .popup-container h1 {
+                margin-top: 20px;
+                font-size: 24px;
+                color: #333;
+            }
+
+            .popup-container p {
+                font-size: 16px;
+                color: #555;
+                line-height: 1.6;
+                margin: 20px 0;
+            }
+
+            .close-btn {
+                margin-top: 20px;
+                display: inline-block;
+                padding: 10px 20px;
+                font-size: 16px;
+                color: white;
+                background: #007BFF;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                text-decoration: none;
+            }
+
+            .close-btn:hover {
+                background: #012753;
+            }
+
+        </style>
+    </head>
+    <body>
+        <!-- Flowchart Content -->
+        <div class="flowchart-container">
+            <div class="flowchart">
+                <div class="level">
+                    <div>
+                        <a href="#" class="node level-1" onclick="toggleExpand(event, 'level-2')">LRDE</a>
+                        <div class="pointer"></div>
+                    </div>
+                </div>
+                <div class="vertical-column" id="level-2">
+                    <div class="level">
+                        <div>
+                            <a href="#" class="node level-2" onclick="toggleExpand(event, 'level-3')">RAMD</a>
+                            <div class="pointer"></div>
+                        </div>
+                    </div>
+                    <div class="vertical-column" id="level-3">
+                        <div class="level">
+                            <div>
+                                <a href="#" class="node level-3" onclick="toggleExpand(event, 'level-4')">AMTR</a>
+                                <div class="pointer"></div>
+                            </div>
+                        </div>
+                        <div class="vertical-column" id="level-4">
+                            <div class="level">
+                                <div>
+                                    <a href="#" class="node level-4" onclick="toggleExpand(event, 'basket-1')">Technology Basket 1</a>
+                                    <div class="pointer"></div>
+                                    <div class="vertical-column" id="basket-1">
+                                        <div class="block" onclick="showPopup('MRU (S Band & X Band)', 'As the number of Receive and Transmit channels are increasing day by day, due to the requirement of Digital Beam Forming (DBF) in the Radars form sub-array level DBF to element level DBF. In future, the number of receive channels will become equals to the number of antenna elements.  Existing technology using super heterodyne receiver with one/two stages down converter followed by digital down converter implemented inside FPGA cannot meet the SWaP-CR requirements. Use of Xilinx RFSoC with inbuilt multi-channel RFADC and RFDAC is one of the promising technology to mitigate the challenges. Based on availability of Gen3 RFSoC devices, two numbers of S-Band MRU is planned to be developed as Design Verification Model (DVM) along with a Test Jig consisting of external synchronizer to prove multi-board synchronization. Based on the availability of newer devices in future which can support up to X-band signal generation and X-Band direct RF sampling, development of X-Band MRU DVMs will be taken up. The S-band and X-band architecture of MRUs will be similar except the clocking scheme and the front end receiver ahead of the RF ADC. The main function the Multi-Channel Receiver Unit (MRU) are reception of eight channels of S-band RF signals and carries out low noise amplification and filtering, reception of dwell parameters from external subsystem over 10G Ethernet on multimode fiber or Gigabit Ethernet on copper, sampling of RF signals, performing Digital Down Conversion to create Baseband I/Q data, multiplexing eight channel baseband data, sending to external subsystem over 10G Ethernet on multimode fiber. It is also responsible for synthesis of RF signals using Digital Up Conversion of baseband signals and RF DACs. The baseband signals are stored as I/Q data in internal memory. It receives master clock references over optical/RF lines, critical timings over LVDS, synchronizes with other MRUs, and provides sampling clocks to ADCs and DACs, clock to FPGA.', './MRUimage.jpg')">MRU (S Band & X Band)</div>
+                                        <div class="block" onclick="showPopup('LTCC Array', 'Tile structured Arrays have advantage of high integration and miniaturization compared to conventional arrays. But the challenge faced in the Tiled structure is the removal of heat from the Power devices in a multi-channel T/R module array, since conventional methods of heat dissipation are not possible in Tile Arrays.  To circumvent the problem of Cooling in a Tile array, LTCC (Low Temperature Co-fired Ceramics) substrates integrated with Liquid Cooling Micro channels can be adopted. The development of the Array involves the design & optimization of LTCC Substrate with the integrated Cooling Channels followed by the assembly, fabrication, testing and evaluation. LTCC Array with integrated Liquid Cooling Micro Channels design (see Figure 8) is a new technology with critical challenges to design and hence it is planned to prove the concept initially by developing experimental 8 x 8 Array unit to study/mitigate the above risks/challenges. Once LTCC Array with integrated Liquid Cooling Micro Channels technology is established, the knowhow can be utilized in future Tile based active Phased Array Radar systems with improved performance.', './LTCCarrayimage.jpg')">LTCC Array</div>
+                                        <div class="block" onclick="showPopup('LTCC Filters', 'ability to integrate multiple passive components like resistors, capacitors, and inductors into a compact, multilayer ceramic substrate. These passives offer low loss, excellent thermal stability, and high reliability at microwave and millimeter-wave frequencies, making them ideal for radar systems requiring precise signal integrity and performance. In radar applications, LTCC passives enable miniaturization of components while maintaining superior electrical properties, such as low parasitic effects and high Q-factors. Their robust design ensures reliable operation in harsh environments, including extreme temperatures and vibrations, which are common in aerospace, defense, and automotive radar systems. LTCC technology enhances the efficiency and performance of radar systems by supporting the development of compact, lightweight, and high-frequency integrated modules..', './LTCCPassives.jpg')">LTCC Filters</div>
+                                        <div class="block" onclick="showPopup('X Band Planar Array with Planar up/ down converter', 'LRDE is working on multiple AESA Radar (AESAR) design & development for future generation fighter aircrafts like LCA Mk-II, AMCA, Su-30, RPSA etc. Current airborne AESAR radars developed in the lab are utilizing plank based Active Array Antenna unit (AAAU) architecture which is higher in volume and weight. (see Figure 1)The objective of the technology is to establish state-of-the-art panel based active phased array antenna technology (see Figure 2) piggy backed with direct up-down converter that would provide cutting edge features (low profile, light weight, compact and cost effective) to the LRDE radars.', './XBandPlanarimage.jpg')">X Band Planar Array with Planar up/ down converter</div>
+                                        <div class="block" onclick="showPopup('Ku Band Active Antenna Array Unit', 'Only mechanically scanned passive antennas (see Figure 3) in Ku-band are currently used in LRDE radars with single high power transmitter/receiver. This technology has the inherent limitations of like, slow beam steering, single point failure of transmitter/receiver, etc. The proposed Panel based active phased Array Technology overcomes the aforesaid limitations and provides cutting edge features like light weight, low volume and low cost.  As a part of this development, a 16 x 32-element DVM shall be realized.', './KuBandimage.jpg')">Ku Band Active Antenna Array Unit</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="#" class="node level-4" onclick="toggleExpand(event, 'basket-2')">Technology Basket 2</a>
+                                    <div class="pointer"></div>
+                                    <div class="vertical-column" id="basket-2">
+                                        <div class="block" onclick="showPopup('Shared Aperture Phased Array Antenna', 'Current radars systems are utilizing multiple antenna systems (see Figure 6 ) to cater towards radar, IFF, communication, EW, etc. functionalities. The futuristic requirements need significant reduction size, volume, weight and cost. To meet these requirements of future generations of Active phased array radar shared aperture AAAU architecture is required which performs multi-functionalities from the common aperture. So, design, development & realization of shared aperture phased array antenna (see Figure 7 ) is proposed with the aim to establish weight and volume optimized shared aperture AAAU for future Active Phased Array Radar systems. The lab has carried out preliminary feasibility study on the development of Shared Aperture technology and planned to demonstrate this technology by integrating S and X- band array antennas for radar applications, serving simultaneous surveillance and tracking, respectively. Also it is planned to develop a wide band shared aperture antenna array serving radar, communication and EW applications in a time sharing mode. Shared Aperture being a comparatively new technology associated with critical challenges in the area of design, development, integration, performance evaluation etc., it is planned to prove the concept initially by developing proto Shared Aperture Antenna unit to study/mitigate the above risks/challenges. After establishing this technology, same will be utilized in future combat systems with improved performance.', './SharedApertureimage.jpg')">Shared Aperture Phased Array Antenna</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="#" class="node level-4" onclick="toggleExpand(event, 'basket-3')">Technology Basket 3</a>
+                                    <div class="pointer"></div>
+                                    <div class="vertical-column" id="basket-3">
+                                        <div class="block" onclick="showPopup('High Power Density DC DC Converters', 'Power density (W/inch3) is one of the major figure of merit for comparing the DC-DC converter modules available from various manufacturers. Indigenous COTS DC-DC converter modules available from reputed power supply manufacturers in the country normally cater for continuous loads and have to be supported by bulk capacitors at output for Radar pulse load applications. The overall power densities of such configurations is limited to 20 to 30W/inch3. The available space for the converter modules in Active Antenna Array unit (AAAU) is very small especially at higher frequency bands like X band and above. Such applications require converters with power densities in excess of 100W/inch3. Currently worldwide the highest power density converter modules are available only from M/s VICOR, USA with power densities in excess of 100W/inch3 and catering to Radar pulse loads. Since a Radar system has 100’s of such critical converter modules, there is a strong need to develop such critical DC-DC converters within the country there by providing flexibility in design and to avoid sourcing and obsolescence issues during the 15 to 20 years of life cycle of any Radar system. The technology objective is to establish the state of the art technologies for realizing compact DC-DC converters for Radar pulse load applications.', './DCDCimage.jpg')">High Power Density DC DC Converters</div>
+                                        <div class="block" onclick="showPopup('MMICs', 'T/R Modules are the basic building blocks of AAAU and in which major components are different MMICs in the form of TR chips are, Phase shifter, attenuator, LNA and Power Amplifier etc. Currently most of the MMICs and Power Amplifiers are imported. To meet the futuristic requirements of Active phased array, SWaP-CR optimized AAAU architecture is proposed in order to reduce volume and weight. In order to achieve it, higher integration is required not only on module level, but also on MMIC level. Hence, SiGe Bi-CMOS based multifunction MMIC (also called as Core chip) provide significant reduction in chip area and has the potential to combine multi-channel T/R module in a single chip. DRDO has been given the mandate of maximising the indigenous content in DRDO Designed Products and Technologies. This technology development aims at indigenous realisation of MMICs in various bands to cater for multiple projects of LRDE. The suitable industry partners (GAETEC/ start-ups) will be identified to design, realize and produce these required components.', './images/mmic.jpg')">MMICs</div>
+                                        <div class="block" onclick="showPopup('Beamformer ICs', 'Currently there are only two OEMs from USA for the core chips meeting most of the requirements, but not all. Beamformer ICS are also currently imported leading to the total dependence on these foreign vendors. So there is a strong need to indigenise these to reduce the import content and increase the self-reliance. DRDO has been given the mandate of maximising the indigenous content in DRDO Designed Products and Technologies. This technology development aims at indigenous realisation beamformer ICs in various bands to cater for multiple projects of LRDE. The suitable industry partners (GAETEC/ start-ups) will be identified to design, realize and produce these required components.', './images/beamformer.jpg')">Beamformer ICs</div>
+                                        <div class="block" onclick="showPopup('RF ADCs & RF DACs', 'Description for RF ADCs and DACs.', './images/rf_adc.jpg')">RF ADCs & RF DACs</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="#" class="node level-4" onclick="toggleExpand(event, 'basket-4')">Technology Basket 4</a>
+                                    <div class="pointer"></div>
+                                    <div class="vertical-column" id="basket-4">
+                                        <div class="block" onclick="showPopup('Spherical Radome', 'LRDE has experience in realization of flat Radome (see Figure 4 ) without joints for most of our ground based radars. Air-supported Radome (see Figure 5 ) of diameter 25m for an L-Band Radar is presently being utilized. However, they are required to be pressurized 24X7 to maintain the spherical shape.  It is planned to establish the design and development technology for spherical solid Radome of diameter more than 22m diameter in the country.  The design shall involve EM and structural design of the radome with multiple panels, optimization of the joints, and selection of materials and testing of panels (EM, structural and environmental). The Radome panels shall be designed for various frequency bands. (S, X and Ka band). Radomes involve multiple discipline, viz. EM, structural and composites. Potential of Indian Industries in the field of composites will be tapped in to meet the requirements.', './SphericalRadomeimage.jpg')">Spherical Radome</div>
+                                        <div class="block" onclick="showPopup('Meta Material based Antennas/ Antenna Arrays', 'Metamaterials are artificially engineered materials whose bulk electrical properties are modified using various periodic structures. Metamaterial can be realized using various periodic structures such as Thin Wire (TW) (results into negative ε), Split Ring Resonator (SRR)(results into negative μ),Omega (results into negative ε and negative μ) (see Figure 9). Each application of metamaterial has different unit cell which is repeated to form periodic structure. Metamaterials have been used in many diverse field such as photonics, microwaves circuits & microwave antennas. They can be used to make cloaking devices, make miniaturized microwave circuit components like couplers filters etc.', './Metamaterialimage.jpg')">Meta Material based Antennas/ Antenna Arrays</div>
+                                        <div class="block" onclick="showPopup('Drone Calibration/ Field Bite Techniques', 'UAVs have recently been used for HF measurements such as mobile network testing, measurements of the far and near fields of antennas, direction finding, and RF imaging. The main advantage of UAVs is their capability to perform measurements in the actual environment where antennas are going to operate, thus providing insight that cannot be obtained from lab measurements, which are typically focused on ideal, free-space scenarios. Their other advantages include access to appropriate measurement locations, high-resolution of the measured position, the use of simple hardware, reduced ground-reflection effects, and the potential to extract additional parameters. UAVs are used to measure the radiation pattern of antennas under real operating conditions, where the influence of environments, such as distortion due to a multipath or coupling to neighboring objects, can be considered. The measured radiation pattern can be utilized to detect faulty elements in an array or correct the tilt angle of an antenna and find null fills. Additionally, the measured data can be used in simulations or network planning to improve the performance of communication links. UAV-based measurement techniques have many advantages over airborne measurements with a helicopter and land-based measurements. LRDE has experience in open test ranges and near field measurement facilities.  It is planned to establish the Drone based calibration /field BITE techniques for phased array antennas/ receive only Array Antenna in the country.', './Droneimage.jpg')">Drone Calibration/ Field Bite Techniques</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>   
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <!-- Popup -->
+        <div id="popup" class="popup-container" style="display: none;">
+            <img id="popupImage" src="" alt="Popup Image">
+            <h1 id="popupHeading"></h1>
+            <p id="popupContent"></p>
+            <button class="close-btn" onclick="closePopup()">Close</button>
+        </div>
+        
+        <script>
+            function toggleExpand(event, id) {
+                event.preventDefault();
+
+                // Get the target element to expand/collapse
+                const element = document.getElementById(id);
+
+                // Find the closest node and its associated pointer
+                const node = event.target.closest('.node');
+                const pointer = node.nextElementSibling;
+
+                if (element) {
+                    // Toggle the visibility of the target element
+                    element.classList.toggle('show');
+
+                    // Toggle the pointer's rotation class
+                    if (pointer && pointer.classList.contains('pointer')) {
+                        pointer.classList.toggle('open');
+                    }
+
+                    // Smooth scroll to the target element
+                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        
+            function showPopup(title, content, imageSrc) {
+
+                // Set popup content
+                const popup = document.getElementById('popup');
+                const popupHeading = document.getElementById('popupHeading');
+                const popupContent = document.getElementById('popupContent');
+                const popupImage = document.getElementById('popupImage');
+
+                if (popup && popupHeading && popupContent && popupImage) {
+                    popupHeading.textContent = title;
+                    popupContent.textContent = content;
+                    popupImage.src = imageSrc;
+
+                    // Display the popup
+                    popup.style.display = 'block';
+                    popup.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                    // Add backdrop
+                    let backdrop = document.getElementById('popupBackdrop');
+                    if (!backdrop) {
+                        backdrop = document.createElement('div');
+                        backdrop.id = 'popupBackdrop';
+                        backdrop.style.position = 'fixed';
+                        backdrop.style.top = '0';
+                        backdrop.style.left = '0';
+                        backdrop.style.width = '100%';
+                        backdrop.style.height = '100%';
+                        backdrop.style.background = 'rgba(0, 0, 0, 0.5)';
+                        backdrop.style.zIndex = '999';
+                        document.body.appendChild(backdrop);
+                    }
+
+                    // Lock scrolling
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+
+            function closePopup() {
+                const popup = document.getElementById('popup');
+                if (popup) {
+                    popup.style.display = 'none';
+                }
+
+                // Remove backdrop
+                const backdrop = document.getElementById('popupBackdrop');
+                if (backdrop) {
+                    backdrop.remove();
+                }
+
+                // Unlock scrolling
+                document.body.style.overflow = '';
+            }
+
+        </script>
+        
+
+    </body>
+</html>
+
